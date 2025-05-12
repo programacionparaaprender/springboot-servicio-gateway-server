@@ -26,7 +26,9 @@ spring:
       - id: servicio-productos
         uri: lb://servicio-productos
         predicates:          - Path=/api/productos/**
+
         filters:          - StripPrefix=2
+          - EjemploCookie=Hola mi mensaje personalizado, usuario, AndresGuzman
       - id: servicio-items
         uri: lb://servicio-items
         predicates:
@@ -42,6 +44,11 @@ spring:
         predicates:
           - Path=/api/security/**
         filters:
+          - name: CircuitBreaker
+            args:
+              name: productos
+              statusCodes: 500
+              fallbackUri: forward:/api/items/ver/9/cantidad/5
           - StripPrefix=2
       - id: servicio-usuarios
         uri: lb://servicio-usuarios
