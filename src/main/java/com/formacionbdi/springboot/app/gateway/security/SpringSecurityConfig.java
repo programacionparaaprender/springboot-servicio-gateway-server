@@ -23,6 +23,7 @@ public class SpringSecurityConfig {
 						"/api/usuarios/usuarios",
 						"/api/items/ver/{id}/cantidad/{cantidad}",
 						"/api/productos/ver/{id}").permitAll()
+				.pathMatchers(HttpMethod.POST, "/api/productos/crear").permitAll()
 				.pathMatchers(HttpMethod.GET, "/api/usuarios/usuarios/{id}").hasAnyRole("ADMIN", "USER")
 				.pathMatchers("/api/productos/**", "/api/items/**", "/api/usuarios/usuarios/**").hasRole("ADMIN")
 				.anyExchange().authenticated()
